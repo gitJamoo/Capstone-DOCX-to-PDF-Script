@@ -1,6 +1,6 @@
 # 📄 DOCX → PDF Converter
 
-A lightweight Python script that converts `.docx` files into `.pdf` files following the OSU CS46X submission naming requirements.
+A lightweight Python script that converts `.docx` files into `.pdf` files following the OSU CS46X submission naming requirements (`YYYY-MM-DD-[TEAMID]-[ASSIGNMENT_NAME].pdf`).
 
 ---
 
