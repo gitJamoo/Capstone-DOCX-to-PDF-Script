@@ -4,6 +4,14 @@ A lightweight Python script that converts `.docx` files into `.pdf` files follow
 
 ---
 
+## Install
+
+Install required packages with
+
+```bash
+pip install -r requirements.txt
+```
+
 ## 🧭 Usage
 
 Run the script with:

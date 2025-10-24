@@ -2,35 +2,37 @@
 import sys
 import os
 from datetime import datetime
-import pypandoc
+from docx2pdf import convert
 
 # ====== CONFIGURATION ======
-TEAM_ID = "T42"  # ← Change this to your actual team ID
+TEAM_ID = "043"  # ← Change this to your actual team ID
+OUTPUT_DIR = "output"
 # ===========================
 
 def convert_docx_to_pdf(docx_path, assignment_name):
-    # Validate file
+    # Validate input
     if not os.path.isfile(docx_path):
-        print(f"Error: File not found - {docx_path}")
+        print(f"❌ Error: File not found - {docx_path}")
         sys.exit(1)
 
-    # Ensure file extension is .docx
     if not docx_path.lower().endswith(".docx"):
-        print("Error: Input file must be a .docx file.")
+        print("❌ Error: Input file must be a .docx file.")
         sys.exit(1)
 
-    # Get current date for naming convention
+    # Create /output directory if not exists
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    # Build filename with date + team + assignment
     now = datetime.now()
     date_str = f"{now.year}-{now.month:02d}-{now.day:02d}"
-
-    # Construct output file name
     output_filename = f"{date_str}-{TEAM_ID}-{assignment_name}.pdf"
-    output_path = os.path.join(os.path.dirname(docx_path), output_filename)
+    output_path = os.path.join(OUTPUT_DIR, output_filename)
 
-    # Perform conversion
+    print(f"Converting {docx_path} → {output_path} ...")
+
     try:
-        print(f"Converting {docx_path} → {output_filename} ...")
-        pypandoc.convert_file(docx_path, 'pdf', outputfile=output_path, extra_args=['--standalone'])
+        # Convert .docx to .pdf
+        convert(docx_path, output_path)
         print(f"✅ Conversion complete: {output_path}")
     except Exception as e:
         print(f"❌ Conversion failed: {e}")
